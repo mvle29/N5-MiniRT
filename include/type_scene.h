@@ -18,13 +18,13 @@
 #include "type_shape.h"
 #include "type_mesh.h"
 
-typedef struct	s_color
+/*typedef struct	s_color
 {
 	int	r;
 	int	g;
 	int	b;
 	int	t;
-}	t_color;
+}	t_color;*/
 
 typedef struct	s_cam
 {
@@ -43,12 +43,12 @@ typedef struct	s_light
 typedef struct	s_object
 {
 	t_vec3	origin;
-	double	coeff;
+	double	coeff; // pour raytracing (a deplacer peut etre)
 	t_shape	shape; // forme geometrique predeterminee (plan, triangle, sphere, cylindre)
-	t_mesh	mesh;  //.obj file
+	//t_mesh	mesh;  //.obj file
 	double	transparency;
 	double	reflectivity;
-	t_vec3	color;
+	t_vec3	color; // x y z = r g b (0-255)
 }	t_object;
 
 typedef struct	s_scene

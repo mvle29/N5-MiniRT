@@ -1,5 +1,5 @@
-#ifndef MINIRT_MLX_H
-# define MINIRT_MLX_H
+#ifndef TYPE_MLX_H
+# define TYPE_MLX_H
 
 #include "mlx.h"
 #include "mlx_int.h"

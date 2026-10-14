@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef CSTE_MINIRT_H
+# define CSTE_MINIRT_H
 
 # define RT_LIMIT 1
 # define EPSILON 1e-4

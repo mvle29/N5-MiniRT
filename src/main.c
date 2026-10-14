@@ -20,7 +20,7 @@ int	main(void)
 
 	if (!init_engine(&engine))
 		return (1);
-	mlx_signals(&engine);
+	mlx_signals(&engine); // render est dedans
 	mlx_loop(engine.mlx.mlx);
 	end_program(&engine);
 	return (0);

@@ -1,5 +1,5 @@
-#ifndef INIT_H
-# define INIT_H
+#ifndef FN_INIT_H
+# define FN_INIT_H
 
 #include "type_engine.h"
 

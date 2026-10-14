@@ -54,7 +54,6 @@ t_vec3	get_light_sum(t_scene *scene, t_vec3 normal, t_vec3 intersect)
 	while (light)
 	{
 		light_sum = add_vec(light_sum, get_light_lvl(scene, (t_light*)(light->content), normal, intersect));
-		light_sum = (t_vec3){min(255.0, light_sum.x), min(255.0, light_sum.y), min(255.0, light_sum.z)};
 		light = light->next;
 	}
 	return (mult_by_k_vec(light_sum, 1.0/255.0));
@@ -94,6 +93,9 @@ int	get_color(t_scene *scene, t_ray3 ray, t_object *closest, t_vec3 intersect)
  - de construire la normale a notre shape en notre point d intersection (O + ray * obj->coeff)
  - de construire le ou les rayons qui vont vers mes light
  - d établir leur poids dans la couleur finale : si le vecteur est ombrage ne pas compter etc
+ - on fait dot product entre : le vec normale de notre en forme au pt d intersection, et le vec qui va
+ vers la light depuis notre pt d intersection (dot product entre ces 2 vec normalisés (longueur de 1))
+ Le résultat correspond a a quel pt les 2 vecteurs sont similaires / differents
  - a la fin, d'additionner ttes les light
  - faire light x chaque composante rgb de notre objet
  - transformer en un int qui concatene ttes les infos*/

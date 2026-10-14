@@ -27,7 +27,7 @@ int	mlx_render(t_engine *engine)
 		screen_coord.x = 0;
 		while (screen_coord.x < screen_max.x)
 		{
-			raytrace(screen_coord, screen_max, engine, &pixel);
+			raytrace(screen_coord, screen_max, engine, &pixel); // src/render/raytrace.c
 			my_pixel_put(&(engine->next), screen_coord, pixel);
 			screen_coord.x++;
 		}
