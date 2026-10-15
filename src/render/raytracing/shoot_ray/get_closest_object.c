@@ -55,30 +55,6 @@ int	valid_intersection(t_object *obj, t_ray3 ray)
 		return (0);
 	obj->coeff = valid_soluce;
 	return (1);
-	/*if (nb_soluces == 0)
-		return (0);
-	else if (nb_soluces == 1 && soluces[0] > 0.0)
-	{
-		obj->coeff = soluces[0];
-		return (1);
-	}
-	else if (nb_soluces == 2 && !(soluces[0] < 0.0 && soluces[1] < 0.0))
-	{
-		if (soluces[0] < 0.0)
-			obj->coeff = soluces[1];
-		else if (soluces[1] < 0.0)
-			obj->coeff = soluces[0];
-		else if (soluces[1] < soluces[0])
-			obj->coeff = soluces[1];
-		else
-			obj->coeff = soluces[0];
-		return (1);
-	}
-	else if (nb_soluces > 2)
-	{
-		min(double[0], double[1]);
-	}
-	return (0);*/
 }
 /* valid intersection return 1 ou 0 selon la validite de l intersection rayon objet. aussi, elle assigne une valeur a obj->coeff
 quand une solution valide est trouvée.
