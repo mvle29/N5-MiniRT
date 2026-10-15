@@ -8,7 +8,6 @@ ARC_LIBFT = libs/libft/libft.a
 ARC_MINILIBX = libs/minilibx-linux/libmlx_Linux.a libs/minilibx-linux/libmlx.a
 ARC = $(ARC_MINILIBX) $(ARC_LIBFT)
 INCLUDE = $(foreach H,$(HEADER),-I $H)
-DEPS = $(OBJS:.o=.d)
 
 DIRS = $(sort $(dir $(SRC))) src/math/ include/
 
@@ -71,6 +70,8 @@ SRC = $(foreach F,$(SRC_FILES),$(SRC_DIR)$F)
 
 OBJ = $(SRC:.c=.o)
 
+DEPENDENCIES = $(OBJ:.o=.d)
+
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(ARC_LIBFT) $(ARC_MINILIBX)
@@ -81,6 +82,7 @@ $(NAME) : $(OBJ) $(ARC_LIBFT) $(ARC_MINILIBX)
 
 clean :
 	rm -f $(OBJ)
+	rm -f $(DEPENDENCIES)
 
 clean_everything : clean
 	make clean -C libs/minilibx-linux
@@ -102,4 +104,4 @@ $(ARC_LIBFT) :
 
 .PHONY = all re clean fclean clean_everything fclean_everything
 
--include $(DEPS)
+-include $(DEPENDENCIES)
