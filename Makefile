@@ -72,7 +72,7 @@ OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(ARC_LIBFT) $(ARC_PRINTF)
+$(NAME) : $(OBJ) $(ARC_LIBFT) $(ARC_MINILIBX)
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(ARC) -o $(NAME) $(LINK)
 
 %.o: %.c
@@ -89,7 +89,6 @@ fclean : clean
 	rm -f $(NAME)
 
 fclean_everything : clean_everything fclean
-	make fclean -C libs/minilibx-linux
 	make fclean -C libs/libft
 
 re : fclean all
