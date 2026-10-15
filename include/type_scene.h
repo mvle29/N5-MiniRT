@@ -32,6 +32,8 @@ typedef struct	s_cam
 	t_vec3	fwd;
 	t_vec3	right;
 	t_vec3	up;
+	t_vec2	half_screen_len;
+	double	fov;
 }	t_cam;
 
 typedef struct	s_light
@@ -58,7 +60,6 @@ typedef struct	s_scene
 	t_cam	cam;
 	t_vec3	ambient_color;
 	t_vec3	sky_color;
-	t_vec3	floor_color;
 }	t_scene;
 
 #endif
