@@ -35,7 +35,7 @@ t_vec3	get_light_lvl(t_scene *scene, t_light *light, t_vec3 normal, t_vec3 inter
 	t_ray3	light_ray;
 	double	diff;
 
-	light_lvl = (t_vec3){0.0, 0.0, 0.0};
+	light_lvl = (t_vec3){0};
 	light_ray.vec = sub_vec(light->origin, intersect);
 	light_ray.origin = intersect;
 	diff = max(0.0, dot(normal, normalize(light_ray.vec)));
@@ -65,9 +65,9 @@ int	vec3_to_int_color(t_vec3 color)
 	int	g;
 	int b;
 
-	r = (int)(color.x);
-	g = (int)(color.y);
-	b = (int)(color.z);
+	r = (int)(color.r);
+	g = (int)(color.g);
+	b = (int)(color.b);
 	return (r << 16 | g << 8 | b);
 }
 
@@ -81,9 +81,9 @@ int	get_color(t_scene *scene, t_ray3 ray, t_object *closest, t_vec3 intersect)
 	if (dot(ray.vec, surface_normal) > 0.0)
 		surface_normal = mult_by_k_vec(surface_normal, -1.0);
 	light_sum = get_light_sum(scene, surface_normal, intersect);
-	color.x = closest->color.x * light_sum.x;
-	color.y = closest->color.y * light_sum.y;
-	color.z = closest->color.z * light_sum.z;
+	color.x = closest->color.r * light_sum.r;
+	color.y = closest->color.g * light_sum.g;
+	color.z = closest->color.b * light_sum.b;
 	//(void)scene;
 	//(void)ray;
 	return (vec3_to_int_color(color));

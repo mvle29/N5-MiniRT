@@ -37,8 +37,8 @@ int	init_obj_lst(t_scene *scene)
 	scene->obj_lst = malloc(sizeof(t_list*));
 	if (!scene->obj_lst)
 		return (0);
-	*(scene->obj_lst) = ft_lstnew(init_obj((t_vec3){139.0, 5.0, 10.0}, (t_vec3){0.0, 2.0, 3.0}, 2.0));
-	ft_lstadd_front(scene->obj_lst, ft_lstnew(init_obj((t_vec3){5.0, 139.0, 10.0}, (t_vec3){0.0, 0.0, 3.0}, 2.0)));
+	*(scene->obj_lst) = ft_lstnew(init_obj((t_vec3){.r = 139.0, .g = 5.0, .b = 10.0}, (t_vec3){.x = 0.0, .y = 2.0, .z = 3.0}, 2.0));
+	ft_lstadd_front(scene->obj_lst, ft_lstnew(init_obj((t_vec3){.r = 5.0, .g = 139.0, .b = 10.0}, (t_vec3){.x = 0.0, .y = 0.0, .z = 3.0}, 2.0)));
 	if (!*(scene->obj_lst))
 		return (0);
 	return (1);

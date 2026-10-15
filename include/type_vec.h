@@ -15,9 +15,21 @@
 
 typedef struct s_vec3
 {
-	double	x;
-	double	y;
-	double	z;
+	union
+	{
+		struct
+		{
+			double x;
+			double y;
+			double z;
+		};
+		struct
+		{
+			double r;
+			double g;
+			double b;
+		};
+	};
 }	t_vec3;
 
 typedef struct s_vec2

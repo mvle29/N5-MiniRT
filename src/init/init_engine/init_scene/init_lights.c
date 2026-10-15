@@ -33,7 +33,7 @@ int	init_light_lst(t_scene *scene)
 	scene->light_lst = malloc(sizeof(t_list*));
 	if (!scene->light_lst)
 		return (0);
-	*(scene->light_lst) = ft_lstnew(init_light(build_vec3(255.0, 255.0, 255.0), build_vec3(0.0, 7.0, 3.0)));
+	*(scene->light_lst) = ft_lstnew(init_light((t_vec3){.r = 255.0, .g = 255.0, .b = 255.0}, (t_vec3){.x = 0.0, .y = 7.0, .z = 3.0}));
 	if (!*(scene->light_lst))
 		return (0);
 	return (1);
