@@ -1,13 +1,14 @@
 NAME = miniRT
 TEST = test
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -MMD -MP
 LINK = -lXext -lX11 -lm
 HEADER = libs/libft libs/minilibx-linux $(DIRS)
 ARC_LIBFT = libs/libft/libft.a
 ARC_MINILIBX = libs/minilibx-linux/libmlx_Linux.a libs/minilibx-linux/libmlx.a
 ARC = $(ARC_MINILIBX) $(ARC_LIBFT)
 INCLUDE = $(foreach H,$(HEADER),-I $H)
+DEPS = $(OBJS:.o=.d)
 
 DIRS = $(sort $(dir $(SRC))) src/math/ include/
 
@@ -100,3 +101,5 @@ $(ARC_LIBFT) :
 	make -C libs/libft/
 
 .PHONY = all re clean fclean clean_everything fclean_everything
+
+-include $(DEPS)
