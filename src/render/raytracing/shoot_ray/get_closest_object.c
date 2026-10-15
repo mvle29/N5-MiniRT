@@ -12,14 +12,50 @@
 
 #include "fn_render.h"
 #include "fn_math.h"
+#include "cste_miniRT.h"
+
+double	get_valid_solution(double *soluces, int nb_soluces)
+{
+	int		i;
+	double	res;
+
+	res = -1;
+	i = 0;
+	if (nb_soluces > 2 && soluces[1] > 0.0)
+	{
+		if (soluces[0] < 0.0)
+			res = EPSILON;
+		else
+			res = soluces[0];
+	}
+	else if (nb_soluces <= 2)
+	{
+		while (i < nb_soluces)
+		{
+			if (soluces[i] > 0.0 && (res < 0 || min(soluces[i], res) == soluces[i]))
+				res = soluces[i];
+			i++;
+		}
+	}
+	return (res);
+}
+// soluces aura la valeur du coeff min et max dans le cas d un plan ou d un cylindre
+// si les solutions correspondent a un segment
+// sur le plan (plan pile dans l'alignement du rayon cam / ou haut du cylindre)
 
 int	valid_intersection(t_object *obj, t_ray3 ray)
 {
-	double	soluces[2]; // 2 valable pour une sphere, a voir pour plan & cylindre (+ de 2 soluces possibles)
+	double	soluces[2];
 	int		nb_soluces;
+	double	valid_soluce;
 
 	nb_soluces = obj->shape.is_in_shape(&ray, &(obj->shape), obj->origin, soluces);
-	if (nb_soluces == 0)
+	valid_soluce = get_valid_solution(soluces, nb_soluces);
+	if (valid_soluce == -1)
+		return (0);
+	obj->coeff = valid_soluce;
+	return (1);
+	/*if (nb_soluces == 0)
 		return (0);
 	else if (nb_soluces == 1 && soluces[0] > 0.0)
 	{
@@ -38,7 +74,11 @@ int	valid_intersection(t_object *obj, t_ray3 ray)
 			obj->coeff = soluces[0];
 		return (1);
 	}
-	return (0);
+	else if (nb_soluces > 2)
+	{
+		min(double[0], double[1]);
+	}
+	return (0);*/
 }
 /* valid intersection return 1 ou 0 selon la validite de l intersection rayon objet. aussi, elle assigne une valeur a obj->coeff
 quand une solution valide est trouvée.
