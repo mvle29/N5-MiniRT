@@ -15,17 +15,17 @@
 
 t_vec3	add_vec(t_vec3 u, t_vec3 v)
 {
-	return((t_vec3){u.x + v.x, u.y + v.y, u.z + v.z});
+	return((t_vec3){.x = u.x + v.x, .y = u.y + v.y, .z = u.z + v.z});
 }
 
 t_vec3	sub_vec(t_vec3 u, t_vec3 v)
 {
-	return((t_vec3){u.x - v.x, u.y - v.y, u.z - v.z});
+	return((t_vec3){.x = u.x - v.x, .y = u.y - v.y, .z = u.z - v.z});
 }
 
 t_vec3	mult_by_k_vec(t_vec3 u, double k)
 {
-	return((t_vec3){u.x * k, u.y * k, u.z * k});
+	return((t_vec3){.x = u.x * k, .y = u.y * k, .z = u.z * k});
 }
 
 double	vec_norm(t_vec3 u)
