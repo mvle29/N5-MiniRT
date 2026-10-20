@@ -6,12 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/10 18:05:02 by marvin            #+#    #+#             */
-/*   Updated: 2026/10/10 18:05:02 by marvin           ###   ########.fr       */
+/*   Updated: 2026/10/20 18:38:28 by adi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FN_MLX_H
-# define FN_MLH_H
+# define FN_MLX_H
 
 #include "type_engine.h"
 
