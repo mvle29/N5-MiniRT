@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/10 17:00:14 by marvin            #+#    #+#             */
-/*   Updated: 2026/10/10 17:00:14 by marvin           ###   ########.fr       */
+/*   Updated: 2026/10/20 20:01:55 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fn_render.h"
 #include "fn_math.h"
 #include "cste_miniRT.h"
-
+#include <stddef.h>
 
 int	in_shadow(t_scene *scene, t_ray3 light_ray, t_vec3 light_origin, t_vec3 normal)
 {

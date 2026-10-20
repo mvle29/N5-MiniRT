@@ -2,7 +2,8 @@
 # define TYPE_MLX_H
 
 #include "mlx.h"
-#include "mlx_int.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
 
 typedef struct	s_mlx
 {

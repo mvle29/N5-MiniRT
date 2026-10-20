@@ -6,13 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 22:15:41 by marvin            #+#    #+#             */
-/*   Updated: 2026/10/07 22:15:41 by marvin           ###   ########.fr       */
+/*   Updated: 2026/10/20 20:02:14 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fn_render.h"
 #include "fn_math.h"
 #include "cste_miniRT.h"
+#include <stddef.h>
 
 double	get_valid_solution(double *soluces, int nb_soluces)
 {

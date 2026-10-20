@@ -1,7 +1,7 @@
 NAME = miniRT
 TEST = test
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -MMD -MP
+CFLAGS = -Wall -Werror -Wextra -g -MMD -MP -std=gnu17
 LINK = -lXext -lX11 -lm
 HEADER = libs/libft libs/minilibx-linux $(DIRS)
 ARC_LIBFT = libs/libft/libft.a
@@ -97,7 +97,7 @@ fclean_everything : clean_everything fclean
 re : fclean all
 
 $(ARC_MINILIBX) :
-	make -C libs/minilibx-linux/
+	make -C libs/minilibx-linux/ CC="gcc -std=gnu17"
 
 $(ARC_LIBFT) :
 	make -C libs/libft/
