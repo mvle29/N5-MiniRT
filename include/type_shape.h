@@ -27,17 +27,17 @@ typedef struct	s_triangle
 
 typedef struct s_plane
 {
-	t_triangle	a;
-	t_triangle	b;
+	t_vec3	normal;
 }	t_plane;
 
 typedef struct s_cylinder
 {
+	t_vec3	leader_vec; // droite directrice
 	double	diameter;
 	double	height;
 }	t_cylinder;
 
-enum e_type
+enum e_type // enum a surpprimer si non utilisee dans parsing
 {
 	SPHERE,
 	PLANE,
