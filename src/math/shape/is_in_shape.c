@@ -30,6 +30,11 @@ int	is_in_sphere(t_ray3 *ray, t_shape *sphere, t_vec3 sphere_origin, double *sol
 	return (2);
 }
 
+int	is_in_plane(t_ray3 *ray, t_shape *plane, t_vec3 plane_origin, double *soluces)
+{
+	
+}
+
 //o - p donne le vecteur PO .
 //si p est dans la sphere, PO a la meme longueur que le rayon de la sphere
 // (ou diametre / 2)

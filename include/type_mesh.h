@@ -13,9 +13,9 @@
 #ifndef TYPE_MESH_H
 #define TYPE_MESH_H
 
-typedef struct s_mesh
+/*typedef struct s_mesh
 {
 	t_triangle	**triangles;
-}	t_mesh;
+}	t_mesh;*/
 
 #endif
