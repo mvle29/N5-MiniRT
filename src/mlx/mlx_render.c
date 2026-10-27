@@ -13,12 +13,14 @@
 #include "fn_mlx.h"
 #include "fn_render.h"
 
-int	mlx_render(t_engine *engine)
+int	mlx_render(void *data)
 {
-	t_vec2	screen_coord;
-	t_vec2	screen_max;
-	int		pixel;
+	t_engine	*engine;
+	t_vec2		screen_coord;
+	t_vec2		screen_max;
+	int			pixel;
 
+	engine = (t_engine*)data;
 	screen_max.y = engine->mlx.win_h;
 	screen_max.x = engine->mlx.win_w;
 	screen_coord.y = 0;

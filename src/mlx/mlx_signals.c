@@ -14,10 +14,13 @@
 #include "fn_render.h"
 #include "fn_mlx.h"
 
-int	key_hook(int keycode, t_engine *data)
+int	key_hook(int keycode, void *data)
 {
+	t_engine	*engine;
+
+	engine = (t_engine*)data;
 	if (keycode == XK_Escape)
-		exit_program(data);
+		exit_program(engine);
 	return (0);
 }
 

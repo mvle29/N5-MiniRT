@@ -17,7 +17,7 @@
 
 void	swap_images(t_engine *engine);
 void	my_pixel_put(t_mlx_img *img, t_vec2 pixel, int color);
-int		mlx_render(t_engine *engine);
+int		mlx_render(void *data);
 void	mlx_signals(t_engine *data);
 
 #endif

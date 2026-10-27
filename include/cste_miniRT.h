@@ -12,6 +12,7 @@
 
 #ifndef CSTE_MINIRT_H
 # define CSTE_MINIRT_H
+#include <float.h>
 
 # define RT_LIMIT 1
 # define EPSILON 1e-4
