@@ -20,3 +20,10 @@ t_vec3	get_sphere_normal(t_vec3 point, t_shape *shape, t_vec3 shape_origin)
 	res = normalize(sub_vec(point, shape_origin));
 	return (res);
 }
+
+t_vec3	get_plane_normal(t_vec3 point, t_shape *shape, t_vec3 shape_origin)
+{
+	(void)point;
+	(void)shape_origin;
+	return (shape->data.plane.normal);
+}

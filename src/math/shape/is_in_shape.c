@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fn_math.h"
+#include "cste_miniRT.h"
 
 int	is_in_sphere(t_ray3 *ray, t_shape *sphere, t_vec3 sphere_origin, double *soluces)
 {
@@ -32,7 +33,23 @@ int	is_in_sphere(t_ray3 *ray, t_shape *sphere, t_vec3 sphere_origin, double *sol
 
 int	is_in_plane(t_ray3 *ray, t_shape *plane, t_vec3 plane_origin, double *soluces)
 {
-	
+	double	denom;
+
+	denom = dot(ray->vec, plane->data.plane.normal);
+	if (fabs(denom) == 0.0)
+	{
+		if (fabs(dot(sub_vec(plane_origin, ray->origin), ray->vec)) == 1.0)
+		{
+			soluces[0] = DBL_MIN;
+			soluces[1] = DBL_MAX;
+			return (3);
+		}
+		return (0);
+	}
+	soluces[0] = dot(sub_vec(plane_origin, ray->origin), plane->data.plane.normal) / denom;
+	if (soluces[0] < 0.0)
+		return (0);
+	return (1);
 }
 
 //o - p donne le vecteur PO .
