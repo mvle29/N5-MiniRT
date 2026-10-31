@@ -12,7 +12,7 @@ miniRT
 *.a
 *.la
 *.lo
-libs/minilibx-linux/*
+libs/minilibx-linux
 
 # debug
 N5-MiniRT_contents.txt
