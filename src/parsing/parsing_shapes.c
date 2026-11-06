@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:02:45 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/02 20:58:33 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 15:18:48 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "fn_math.h"
 #include "fn_shape.h"
 #include "libft.h"
+#include "fn_parsing.h"
 
 int parse_sphere(t_scene *scene, char **tokens)
 {

@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:59:46 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/02 20:59:55 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 15:56:27 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 #include "fn_math.h"
 #include "cste_miniRT.h"
 #include "libft.h"
+#include "fn_parsing.h"
 
 int parse_ambient(t_scene *scene, char **tokens)
 {
 	double	ratio;
 	t_vec3	color;
 
+	if (scene->ambiant_color->r == -1.0)
+		return (0); //error more than one ambient light in rt file
 	if (ptrptr_count((void **)tokens) != 3)
-		return (0);
+		return (0); //error different nbr of params than expected
 	if (!ft_atof(tokens[1], &ratio) || ratio < 0.0 || ratio > 1.0)
-		return (0);
+		return (0); //error
 	if (!parse_color(tokens[2], &color))
-		return (0);
+		return (0); //error 
 	scene->ambient_color = mult_by_k_vec(color, ratio);
 	return (1);
 }
@@ -37,6 +40,8 @@ int parse_camera(t_scene *scene, char **tokens)
 	double	fov;
 	double	half_fov_rad;
 
+	if (scene->cam.fwd.x != 0.0 || scene->cam.fwd.y != 0.0 || scene->cam.fwd.z != 0.0)
+		return (0); //error cam more than one cam in rt file
 	if (ptrptr_count((void **)tokens) != 4)
 		return (0);
 	if (!parse_vec3(tokens[1], &origin) || !parse_vec3(tokens[2], &fwd) || !ft_atof(tokens[3], &fov))
@@ -67,6 +72,8 @@ int parse_light(t_scene *scene, char **tokens)
 	t_vec3	color;
 	t_vec3	origin;
 
+	if (*(scene->light_lst) != NULL)
+		return (0); //error more than one light in rt file
 	if (ptrptr_count((void **)tokens) != 4)
 		return (0);
 	if (!parse_vec3(tokens[1], &origin) || !ft_atof(tokens[2], &ratio) || ratio < 0.0 || ratio > 1.0)

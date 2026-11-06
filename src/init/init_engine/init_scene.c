@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/10 15:48:57 by marvin            #+#    #+#             */
-/*   Updated: 2026/10/10 15:48:57 by marvin           ###   ########.fr       */
+/*   Updated: 2026/11/06 15:37:14 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_cam(t_cam *cam)
 int	init_scene(t_scene *scene)
 {
 	ft_memset(scene, 0, sizeof(t_scene));
+	scene->ambient_color = (t_vec3){.r = -1.0, .g = -1.0, .b = -1.0};
 	scene->ambient_color = (t_vec3){.r = 105.0, .g = 90.0, .b = 25.0}; // parsing
 	scene->sky_color = (t_vec3){.r = 173.0, .g = 216.0, .b = 230.0}; // parsing
 	init_cam(&(scene->cam));

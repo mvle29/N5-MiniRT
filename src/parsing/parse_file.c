@@ -6,12 +6,13 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/29 17:14:42 by grivault          #+#    #+#             */
-/*   Updated: 2026/10/31 22:06:09 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 16:22:13 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "type_engine.h"
 #include "libft.h"
+#include "fn_parsing.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -61,19 +62,18 @@ static int	router(t_scene *scene, char **tokens)
 	if (!tokens || !tokens[0])
 		return (1); // Empty line, safely ignore
 	if (ft_strcmp(tokens[0], "A") == 0)
-		return (1); // TODO: return parse_ambient(scene, tokens);
+		return (parse_ambient(scene, tokens));
 	else if (ft_strcmp(tokens[0], "C") == 0)
-		return (1); // TODO: return parse_camera(scene, tokens);
+		return (parse_camera(scene, tokens));
 	else if (ft_strcmp(tokens[0], "L") == 0)
-		return (1); // TODO: return parse_light(scene, tokens);
+		return (parse_light(scene, tokens));
 	else if (ft_strcmp(tokens[0], "sp") == 0)
-		return (1); // TODO: return parse_sphere(scene, tokens);
+		return (parse_sphere(scene, tokens));
 	else if (ft_strcmp(tokens[0], "pl") == 0)
-		return (1); // TODO: return parse_plane(scene, tokens);
+		return (parse_plane(scene, tokens));
 	else if (ft_strcmp(tokens[0], "cy") == 0)
-		return (1); // TODO: return parse_cylinder(scene, tokens);
-	// If the identifier doesn't match any known types
-	return (0);
+		return (parse_cylinder(scene, tokens));
+	return (0); //error no conresponding id
 }
 
 int	parse_rt_file(t_scene *scene, char *filename)
