@@ -28,7 +28,7 @@ SRC_MATH_FILES = $(addprefix vector/, $(SRC_MATH_VEC_FILES)) \
 
 SRC_MLX_FILES = mlx_render_utils.c mlx_render.c mlx_signals.c
 
-SRC_PARSING_FILES = parse_file.c
+SRC_PARSING_FILES = parse_file.c parsing_elements.c parsing_shapes.c parsing_utils.c
 
 SRC_RAYTRACING_SHOOT_FILES = get_color.c get_closest_object.c
 SRC_RENDER_RAYTRACING_FILES = $(addprefix shoot_ray/, $(SRC_RAYTRACING_SHOOT_FILES)) build_ray_vec.c shoot_ray_recursive.c

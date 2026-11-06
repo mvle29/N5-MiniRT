@@ -6,12 +6,17 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 15:12:42 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/06 15:17:52 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:00:07 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FN_PARSING_H
 # define FN_PARSING_H
+
+# include "type_scene.h"
+# include "fn_errors.h"
+# include "cste_errors.h"
+# include "cste_parsing_errors.h"
 
 int	parse_rt_file(t_scene *scene, char *filename);
 

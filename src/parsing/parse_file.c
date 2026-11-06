@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/29 17:14:42 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/06 16:22:13 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:03:00 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ static char	**read_whole_file(int fd)
 
 	content = ft_strdup("");
 	if (!content)
-		return (NULL); //print error
+		return (puterror(ERR_MALLOC), NULL);
 	bytes_read = read(fd, buffer, 1024);
 	while (bytes_read > 0)
 	{
 		buffer[bytes_read] = '\0';
 		temp = content;
-		content = ft_strjoin(temp, buffer); // Requires free of old content
+		content = ft_strjoin(temp, buffer);
 		free(temp);
 		if (!content)
-			return (NULL); //print error
+			return (puterror(ERR_MALLOC), NULL);
 		bytes_read = read(fd, buffer, 1024);
 	}
+	if (bytes_read < 0)
+		return (puterror(ERR_READ), free(content), NULL);
 	lines = ft_split(content, '\n');
 	return (free(content), lines);
 }
@@ -60,7 +62,7 @@ static int	router(t_scene *scene, char **tokens)
 {
 	(void)scene;
 	if (!tokens || !tokens[0])
-		return (1); // Empty line, safely ignore
+		return (1);
 	if (ft_strcmp(tokens[0], "A") == 0)
 		return (parse_ambient(scene, tokens));
 	else if (ft_strcmp(tokens[0], "C") == 0)
@@ -73,7 +75,7 @@ static int	router(t_scene *scene, char **tokens)
 		return (parse_plane(scene, tokens));
 	else if (ft_strcmp(tokens[0], "cy") == 0)
 		return (parse_cylinder(scene, tokens));
-	return (0); //error no conresponding id
+	return (puterror(ERR_ID), 0);
 }
 
 int	parse_rt_file(t_scene *scene, char *filename)
@@ -85,24 +87,27 @@ int	parse_rt_file(t_scene *scene, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (0); //print error
+		return (puterror(ERR_OPEN), 0);
 	lines = read_whole_file(fd);
 	close(fd);
 	if (!lines)
-		return (0); //print error
+		return (0);
 	i = 0;
 	while (lines[i])
 	{
 		replace_whitespaces(lines[i]);
 		tokens = ft_split(lines[i], ' ');
-		if (!router(scene, tokens)) //if true means id is not one of the expected ids
+		if (!router(scene, tokens))
 		{
 			(ptrptr_free((void **)tokens), ptrptr_free((void **)lines));
-			return (0); // Clean up and exit on first syntax error
+			return (0);
 		}
 		ptrptr_free((void **)tokens);
 		i++;
 	}
 	ptrptr_free((void **)lines);
-	return (1); // Parsing successful
+	if (scene->ambient_color.r == -1.0 || (scene->cam.fwd.x == 0.0
+				&& scene->cam.fwd.y == 0.0 && scene->cam.fwd.z == 0.0))
+		return (puterror("Missing Camera or Ambient light in scene"), 0);
+	return (1);
 }

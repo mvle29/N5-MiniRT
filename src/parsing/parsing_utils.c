@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:58:58 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/02 20:59:21 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/06 18:07:22 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int ft_atof(const char *str, double *out)
 			sign = -1;
 		i++;
 	}
+	if (!ft_isdigit(str[i]))
+		return (0);
 	while (ft_isdigit(str[i]))
 		res = res * 10.0 + (str[i++] - '0');
 	if (str[i] == '.')
