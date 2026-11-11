@@ -16,34 +16,37 @@ SRC_END_FILES = end_program.c
 SRC_ERROR_FILES = exit_error.c puterror.c
 
 SRC_INIT_SCENE_FILES = init_lights.c init_obj.c
-SRC_INIT_ENGINE_FILES = $(addprefix init_scene/, $(SRC_INIT_SCENE_FILES)) init_mlx.c init_scene.c
-SRC_INIT_FILES = $(addprefix init_engine/, $(SRC_INIT_ENGINE_FILES)) init_engine.c
+SRC_INIT_ENGINE_FILES = init_mlx.c init_scene.c
+SRC_INIT_FILES = init_engine.c
 
 SRC_MATH_SHAPE_FILES = is_in_shape.c get_surface_normal.c
 SRC_MATH_BASIC_FILES = 2nd_degree.c max_min.c change_interval.c
 SRC_MATH_VEC_FILES = basic_vector_math.c build_vec.c dot.c normalize.c projection.c vec_product.c
-SRC_MATH_FILES = $(addprefix vector/, $(SRC_MATH_VEC_FILES)) \
-				 $(addprefix basic_maths/, $(SRC_MATH_BASIC_FILES)) \
-				 $(addprefix shape/, $(SRC_MATH_SHAPE_FILES))
 
 SRC_MLX_FILES = mlx_render_utils.c mlx_render.c mlx_signals.c
 
 SRC_PARSING_FILES = parse_file.c parsing_elements.c parsing_shapes.c parsing_utils.c
 
 SRC_RAYTRACING_SHOOT_FILES = get_color.c get_closest_object.c
-SRC_RENDER_RAYTRACING_FILES = $(addprefix shoot_ray/, $(SRC_RAYTRACING_SHOOT_FILES)) build_ray_vec.c shoot_ray_recursive.c
-SRC_RENDER_FILES = $(addprefix raytracing/, $(SRC_RENDER_RAYTRACING_FILES)) raytrace.c
+SRC_RENDER_RAYTRACING_FILES =build_ray_vec.c shoot_ray_recursive.c
+SRC_RENDER_FILES = raytrace.c
 
-SRC_FILES = $(addprefix end_program/, $(SRC_END_FILES)) \
-			 $(addprefix error_printing/, $(SRC_ERROR_FILES)) \
-			 $(addprefix init/, $(SRC_INIT_FILES)) \
-			 $(addprefix math/, $(SRC_MATH_FILES)) \
-			 $(addprefix mlx/, $(SRC_MLX_FILES)) \
-			 $(addprefix parsing/, $(SRC_PARSING_FILES)) \
-			 $(addprefix render/, $(SRC_RENDER_FILES)) \
-			 main.c
-
-SRC = $(addprefix src/, $(SRC_FILES))
+SRC = $(addprefix src/, \
+		$(addprefix end_program/, $(SRC_END_FILES)) \
+		$(addprefix error_printing/, $(SRC_ERROR_FILES)) \
+		$(addprefix init/, $(SRC_INIT_FILES) \
+			$(addprefix init_engine/, $(SRC_INIT_ENGINE_FILES) \
+				$(addprefix init_scene/, $(SRC_INIT_SCENE_FILES)))) \
+		$(addprefix math/, \
+			$(addprefix vector/, $(SRC_MATH_VEC_FILES)) \
+			$(addprefix basic_maths/, $(SRC_MATH_BASIC_FILES)) \
+			$(addprefix shape/, $(SRC_MATH_SHAPE_FILES))) \
+		$(addprefix mlx/, $(SRC_MLX_FILES)) \
+		$(addprefix parsing/, $(SRC_PARSING_FILES)) \
+		$(addprefix render/, $(SRC_RENDER_FILES) \
+			$(addprefix raytracing/, $(SRC_RENDER_RAYTRACING_FILES) \
+				$(addprefix shoot_ray/, $(SRC_RAYTRACING_SHOOT_FILES)))) \
+		main.c)
 
 OBJ = $(SRC:.c=.o)
 
