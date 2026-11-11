@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:02:45 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/06 18:12:24 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/09 14:07:59 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int parse_plane(t_scene *scene, char **tokens)
 		return (puterror(ERR_NORM_VEC), free(obj), 0);
 	obj->shape.type = PLANE;
 	obj->shape.data.plane.normal = normalize(normal);
-	obj->shape.is_in_shape = is_in_plane;
-	obj->shape.get_surface_normal = get_plane_normal;
+	//obj->shape.is_in_shape = is_in_plane;
+	//obj->shape.get_surface_normal = get_plane_normal;
 	ft_lstadd_back(scene->obj_lst, ft_lstnew(obj));
 	return (1);
 }
@@ -87,8 +87,8 @@ int parse_cylinder(t_scene *scene, char **tokens)
 	obj->shape.data.cylinder.leader_vec = normalize(axis);
 	obj->shape.data.cylinder.diameter = diameter;
 	obj->shape.data.cylinder.height = height;
-	obj->shape.is_in_shape = is_in_cylinder;
-	obj->shape.get_surface_normal = get_cylinder_normal;
+	//obj->shape.is_in_shape = is_in_cylinder;
+	//obj->shape.get_surface_normal = get_cylinder_normal;
 	ft_lstadd_back(scene->obj_lst, ft_lstnew(obj));
 	return (1);
 }
