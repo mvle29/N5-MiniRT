@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:59:46 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/12 19:34:55 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:45:54 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	set_cam_vectors(t_scene *scene, t_vec3 fwd, double fov)
 	scene->cam.fwd = normalize(fwd);
 	if (scene->cam.fwd.x == 0.0 && scene->cam.fwd.z == 0.0
 		&& (scene->cam.fwd.y == 1.0 || scene->cam.fwd.y == -1.0))
-		scene->cam.up = normalize((t_vec3){0.0, 0.0, -scene->cam.fwd.y});
+		scene->cam.up = normalize(build_vec3(0.0, 0.0, -scene->cam.fwd.y));
 	else
-		scene->cam.up = normalize((t_vec3){0.0, 1.0, 0.0});
+		scene->cam.up = normalize(build_vec3(0.0, 1.0, 0.0));
 	scene->cam.right = normalize(vec_product(scene->cam.up,
 				scene->cam.fwd, 0));
 	scene->cam.up = normalize(vec_product(scene->cam.fwd,

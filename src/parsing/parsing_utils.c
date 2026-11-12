@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:58:58 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/12 19:34:03 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:49:00 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_atof(const char *str, double *out)
 	int		i;
 
 	res = 0.0;
-	fraction = 1.0;
 	sign = 1;
 	i = 0;
 	if (!str)
@@ -51,7 +50,7 @@ int	ft_atof(const char *str, double *out)
 	while (ft_isdigit(str[i]))
 		res = res * 10.0 + (str[i++] - '0');
 	if (str[i] == '.')
-		res += get_fraction(res, &i);
+		res += get_fraction(str, &i);
 	if (str[i] != '\0')
 		return (0);
 	*out = res * sign;
