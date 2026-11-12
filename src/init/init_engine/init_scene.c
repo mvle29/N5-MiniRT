@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/10 15:48:57 by marvin            #+#    #+#             */
-/*   Updated: 2026/10/10 15:48:57 by marvin           ###   ########.fr       */
+/*   Updated: 2026/11/09 14:17:04 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include "fn_init.h"
 #include "fn_math.h"
 #include "cste_miniRT.h"
+#include "cste_errors.h"
+#include "fn_errors.h"
 
+/*
 void	init_cam(t_cam *cam)
 {
 	double	half_fov_deg;
@@ -34,10 +37,31 @@ void	init_cam(t_cam *cam)
 int	init_scene(t_scene *scene)
 {
 	ft_memset(scene, 0, sizeof(t_scene));
+	scene->ambient_color = (t_vec3){.r = -1.0, .g = -1.0, .b = -1.0};
 	scene->ambient_color = (t_vec3){.r = 105.0, .g = 90.0, .b = 25.0}; // parsing
 	scene->sky_color = (t_vec3){.r = 173.0, .g = 216.0, .b = 230.0}; // parsing
 	init_cam(&(scene->cam));
 	if (!init_light_lst(scene) || !init_obj_lst(scene)) // init lst parsing
+		return (0);
+	return (1);
+}
+
+*/
+
+#include "fn_parsing.h"
+
+int	init_scene(t_scene *scene, char *filename)
+{
+	ft_memset(scene, 0, sizeof(t_scene));
+	scene->ambient_color = (t_vec3){.r = -1.0, .g = -1.0, .b = -1.0};
+	scene->sky_color = (t_vec3){.r = 173.0, .g = 216.0, .b = 230.0};
+	scene->light_lst = malloc(sizeof(t_list *));
+	scene->obj_lst = malloc(sizeof(t_list *));
+	if (!scene->light_lst || !scene->obj_lst)
+		return (puterror(ERR_MALLOC), 0);
+	*(scene->light_lst) = NULL;
+	*(scene->obj_lst) = NULL;
+	if (!parse_rt_file(scene, filename))
 		return (0);
 	return (1);
 }
