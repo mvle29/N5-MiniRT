@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/02 20:59:46 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/06 18:12:41 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:34:55 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 #include "fn_parsing.h"
 
-int parse_ambient(t_scene *scene, char **tokens)
+int	parse_ambient(t_scene *scene, char **tokens)
 {
 	double	ratio;
 	t_vec3	color;
@@ -33,14 +33,35 @@ int parse_ambient(t_scene *scene, char **tokens)
 	return (1);
 }
 
-int parse_camera(t_scene *scene, char **tokens)
+static void	set_cam_vectors(t_scene *scene, t_vec3 fwd, double fov)
+{
+	double	half_fov_rad;
+
+	scene->cam.fwd = normalize(fwd);
+	if (scene->cam.fwd.x == 0.0 && scene->cam.fwd.z == 0.0
+		&& (scene->cam.fwd.y == 1.0 || scene->cam.fwd.y == -1.0))
+		scene->cam.up = normalize((t_vec3){0.0, 0.0, -scene->cam.fwd.y});
+	else
+		scene->cam.up = normalize((t_vec3){0.0, 1.0, 0.0});
+	scene->cam.right = normalize(vec_product(scene->cam.up,
+				scene->cam.fwd, 0));
+	scene->cam.up = normalize(vec_product(scene->cam.fwd,
+				scene->cam.right, 0));
+	scene->cam.fov = fov;
+	half_fov_rad = (fov / 2.0) * M_PI / 180.0;
+	scene->cam.half_screen_len.x = tan(half_fov_rad);
+	scene->cam.half_screen_len.y = scene->cam.half_screen_len.x
+		* WIN_H / WIN_W;
+}
+
+int	parse_camera(t_scene *scene, char **tokens)
 {
 	t_vec3	origin;
 	t_vec3	fwd;
 	double	fov;
-	double	half_fov_rad;
 
-	if (scene->cam.fwd.x != 0.0 || scene->cam.fwd.y != 0.0 || scene->cam.fwd.z != 0.0)
+	if (scene->cam.fwd.x != 0.0 || scene->cam.fwd.y != 0.0
+		|| scene->cam.fwd.z != 0.0)
 		return (puterror(ERR_DUP_CAM), 0);
 	if (ptrptr_count((void **)tokens) != 4)
 		return (puterror(ERR_PARAMS), 0);
@@ -48,26 +69,17 @@ int parse_camera(t_scene *scene, char **tokens)
 		return (puterror(ERR_VEC), 0);
 	if (!ft_atof(tokens[3], &fov))
 		return (puterror(ERR_FOV), 0);
-	if (vec_norm(fwd) == 0.0 || fwd.x < -1.0 || fwd.x > 1.0 || fwd.y < -1.0 || fwd.y > 1.0 || fwd.z < -1.0 || fwd.z > 1.0)
+	if (vec_norm(fwd) == 0.0 || fwd.x < -1.0 || fwd.x > 1.0
+		|| fwd.y < -1.0 || fwd.y > 1.0 || fwd.z < -1.0 || fwd.z > 1.0)
 		return (puterror(ERR_NORM_VEC), 0);
 	if (fov < 0.0 || fov > 180.0)
 		return (puterror(ERR_FOV), 0);
 	scene->cam.origin = origin;
-	scene->cam.fwd = normalize(fwd);
-	if (scene->cam.fwd.x == 0.0 && scene->cam.fwd.z == 0.0 && (scene->cam.fwd.y == 1.0 || scene->cam.fwd.y == -1.0))
-		scene->cam.up = normalize((t_vec3){.x = 0.0, .y = 0.0, .z = -scene->cam.fwd.y});
-	else
-		scene->cam.up = normalize((t_vec3){.x = 0.0, .y = 1.0, .z = 0.0});
-	scene->cam.right = normalize(vec_product(scene->cam.up, scene->cam.fwd, 0));
-	scene->cam.up = normalize(vec_product(scene->cam.fwd, scene->cam.right, 0));
-	scene->cam.fov = fov;
-	half_fov_rad = (fov / 2.0) * M_PI / 180.0;
-	scene->cam.half_screen_len.x = tan(half_fov_rad);
-	scene->cam.half_screen_len.y = scene->cam.half_screen_len.x * WIN_H / WIN_W;
+	set_cam_vectors(scene, fwd, fov);
 	return (1);
 }
 
-int parse_light(t_scene *scene, char **tokens)
+int	parse_light(t_scene *scene, char **tokens)
 {
 	t_light	*light;
 	double	ratio;

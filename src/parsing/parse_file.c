@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/29 17:14:42 by grivault          #+#    #+#             */
-/*   Updated: 2026/11/06 18:03:00 by grivault         ###   ########.fr       */
+/*   Updated: 2026/11/12 19:09:59 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,50 @@ static int	router(t_scene *scene, char **tokens)
 	return (puterror(ERR_ID), 0);
 }
 
+static int	process_lines(t_scene *scene, char **lines)
+{
+	char	**tokens;
+	int		i;
+
+	i = 0;
+	while (lines[i])
+	{
+		replace_whitespaces(lines[i]);
+		tokens = ft_split(lines[i], ' ');
+		if (!router(scene, tokens))
+		{
+			ptrptr_free((void **)tokens);
+			ptrptr_free((void **)lines);
+			return (0);
+		}
+		ptrptr_free((void **)tokens);
+		i++;
+	}
+	return (1);
+}
+
+int	parse_rt_file(t_scene *scene, char *filename)
+{
+	int		fd;
+	char	**lines;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (puterror(ERR_OPEN), 0);
+	lines = read_whole_file(fd);
+	close(fd);
+	if (!lines)
+		return (0);
+	if (!process_lines(scene, lines))
+		return (0);
+	ptrptr_free((void **)lines);
+	if (scene->ambient_color.r == -1.0 || (scene->cam.fwd.x == 0.0
+			&& scene->cam.fwd.y == 0.0 && scene->cam.fwd.z == 0.0))
+		return (puterror(ERR_MISSING), 0);
+	return (1);
+}
+
+/*
 int	parse_rt_file(t_scene *scene, char *filename)
 {
 	int		fd;
@@ -107,7 +151,8 @@ int	parse_rt_file(t_scene *scene, char *filename)
 	}
 	ptrptr_free((void **)lines);
 	if (scene->ambient_color.r == -1.0 || (scene->cam.fwd.x == 0.0
-				&& scene->cam.fwd.y == 0.0 && scene->cam.fwd.z == 0.0))
+			&& scene->cam.fwd.y == 0.0 && scene->cam.fwd.z == 0.0))
 		return (puterror("Missing Camera or Ambient light in scene"), 0);
 	return (1);
 }
+*/
